@@ -16,8 +16,8 @@ namespace BugTracker.Models
 
         ////////////
         
-        public virtual ICollection<BTUser> Memebers { get; set; }
+        public virtual ICollection<BTUser> Members { get; set; } = new HashSet<BTUser>();
 
-        public virtual ICollection<Projcet> Projcets { get; set; }
+        public virtual ICollection<Project> Projects { get; set; } =new HashSet<Project>();
     }
 }
