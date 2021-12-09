@@ -35,5 +35,22 @@ namespace BugTracker.Data
         public DbSet<TicketStatus> TicketStatuses { get; set; }
 
         public DbSet<TicketType> TicketTypes { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            builder
+                .Entity<Invite>()
+                .HasOne(x => x.Project)
+                .WithMany()
+                .OnDelete(DeleteBehavior.NoAction);
+            builder.Entity<Notification>()
+                .HasOne(x => x.Sender)
+                .WithMany()
+                .OnDelete(DeleteBehavior.NoAction);
+        }
+
+        public DbSet<BugTracker.Models.ProjectPriority> ProjectPriority { get; set; }
     }
 }

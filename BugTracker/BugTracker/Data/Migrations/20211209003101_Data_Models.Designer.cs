@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BugTracker.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211205193427_Data Models")]
-    partial class DataModels
+    [Migration("20211209003101_Data_Models")]
+    partial class Data_Models
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -674,7 +674,7 @@ namespace BugTracker.Data.Migrations
                     b.HasOne("BugTracker.Models.Project", "Project")
                         .WithMany()
                         .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Company");
@@ -697,7 +697,7 @@ namespace BugTracker.Data.Migrations
                     b.HasOne("BugTracker.Models.BTUser", "Sender")
                         .WithMany()
                         .HasForeignKey("SenderId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("BugTracker.Models.Ticket", "Ticket")

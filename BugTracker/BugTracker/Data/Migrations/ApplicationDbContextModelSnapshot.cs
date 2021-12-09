@@ -672,7 +672,7 @@ namespace BugTracker.Data.Migrations
                     b.HasOne("BugTracker.Models.Project", "Project")
                         .WithMany()
                         .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Company");
@@ -695,7 +695,7 @@ namespace BugTracker.Data.Migrations
                     b.HasOne("BugTracker.Models.BTUser", "Sender")
                         .WithMany()
                         .HasForeignKey("SenderId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("BugTracker.Models.Ticket", "Ticket")
