@@ -25,7 +25,6 @@ namespace BugTracker.Models
         [DisplayName("Recipient")]
         public string RecipientId { get; set; }
 
-        [Required]
         [DisplayName("Sender")]
         public string SenderId { get; set; }
 

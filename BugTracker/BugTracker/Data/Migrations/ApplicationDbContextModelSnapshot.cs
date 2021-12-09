@@ -167,7 +167,7 @@ namespace BugTracker.Data.Migrations
                     b.Property<DateTimeOffset>("JoinDate")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<int>("ProjectId")
+                    b.Property<int?>("ProjectId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -202,7 +202,6 @@ namespace BugTracker.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("SenderId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("TicketId")
@@ -671,9 +670,7 @@ namespace BugTracker.Data.Migrations
 
                     b.HasOne("BugTracker.Models.Project", "Project")
                         .WithMany()
-                        .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .HasForeignKey("ProjectId");
 
                     b.Navigation("Company");
 
@@ -694,9 +691,7 @@ namespace BugTracker.Data.Migrations
 
                     b.HasOne("BugTracker.Models.BTUser", "Sender")
                         .WithMany()
-                        .HasForeignKey("SenderId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .HasForeignKey("SenderId");
 
                     b.HasOne("BugTracker.Models.Ticket", "Ticket")
                         .WithMany("Notifications")

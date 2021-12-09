@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BugTracker.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211209003101_Data_Models")]
-    partial class Data_Models
+    [Migration("20211209222223_DataModels")]
+    partial class DataModels
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -169,7 +169,7 @@ namespace BugTracker.Data.Migrations
                     b.Property<DateTimeOffset>("JoinDate")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<int>("ProjectId")
+                    b.Property<int?>("ProjectId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -204,7 +204,6 @@ namespace BugTracker.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("SenderId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("TicketId")
@@ -673,9 +672,7 @@ namespace BugTracker.Data.Migrations
 
                     b.HasOne("BugTracker.Models.Project", "Project")
                         .WithMany()
-                        .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .HasForeignKey("ProjectId");
 
                     b.Navigation("Company");
 
@@ -696,9 +693,7 @@ namespace BugTracker.Data.Migrations
 
                     b.HasOne("BugTracker.Models.BTUser", "Sender")
                         .WithMany()
-                        .HasForeignKey("SenderId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .HasForeignKey("SenderId");
 
                     b.HasOne("BugTracker.Models.Ticket", "Ticket")
                         .WithMany("Notifications")

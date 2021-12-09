@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BugTracker.Data.Migrations
 {
-    public partial class Data_Models : Migration
+    public partial class DataModels : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -299,7 +299,7 @@ namespace BugTracker.Data.Migrations
                     JoinDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     CompanyToken = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CompanyId = table.Column<int>(type: "int", nullable: false),
-                    ProjectId = table.Column<int>(type: "int", nullable: false),
+                    ProjectId = table.Column<int>(type: "int", nullable: true),
                     InvitorId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     InviteeId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     IsValid = table.Column<bool>(type: "bit", nullable: false)
@@ -329,7 +329,8 @@ namespace BugTracker.Data.Migrations
                         name: "FK_Invites_Projects_ProjectId",
                         column: x => x.ProjectId,
                         principalTable: "Projects",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -402,7 +403,7 @@ namespace BugTracker.Data.Migrations
                     Message = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     RecipientId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    SenderId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    SenderId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     Viewed = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -418,7 +419,8 @@ namespace BugTracker.Data.Migrations
                         name: "FK_Notifications_AspNetUsers_SenderId",
                         column: x => x.SenderId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Notifications_Tickets_TicketId",
                         column: x => x.TicketId,
