@@ -30,24 +30,49 @@ namespace BugTracker.Services
                 .Include(x => x.Members)
                 .Include(x => x.Tickets)
                     .ThenInclude(x => x.Comments)
+                 .Include(x => x.Tickets)
+                    .ThenInclude(x => x.Attachments)
+                 .Include(x => x.Tickets)
+                    .ThenInclude(x => x.History)
+                .Include(x => x.Tickets)
+                    .ThenInclude(x => x.DeveloperUser)
+                .Include(x => x.Tickets)
+                    .ThenInclude(x => x.OwnerUser)
                 .Include(x => x.Tickets)
                     .ThenInclude(x => x.TicketStatus)
                 .Include(x => x.Tickets)
                     .ThenInclude(x => x.TicketPriority)
                 .Include(x => x.Tickets)
                     .ThenInclude(x => x.TicketType)
+                .Include(x => x.Tickets)
+                    .ThenInclude(x => x.Notifications)
                 .Include(x => x.ProjectPriority)
                 .ToListAsync();
         }
 
-        public Task<IEnumerable<Ticket>> GetAllTicketsAsync(int companyId)
+        public async Task<IEnumerable<Ticket>> GetAllTicketsAsync(int companyId)
         {
-            throw new System.NotImplementedException();
+            
+            IEnumerable<Project> projects = await GetAllProjectsAsync(companyId);
+            var result = projects.SelectMany(x => x.Tickets);
+
+            return result;
         }
 
-        public Task<Company> GetCompanyInfoByIdAsync(int? companyId)
+        public async Task<Company> GetCompanyInfoByIdAsync(int? companyId)
         {
-            throw new System.NotImplementedException();
+            Company result = new();
+
+            if(companyId != null)
+            {
+                result = await _context.Companies
+                    .Include(x => x.Members)
+                    .Include(x => x.Projects)
+                    .Include(x => x.Invites)
+                    .FirstOrDefaultAsync(x => x.Id == companyId);
+            }
+
+            return result;
         }
     }
 }
