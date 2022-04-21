@@ -141,8 +141,9 @@ namespace BugTracker.Services
                 .Where(x => x.Archived == true);
         }
 
-        public async Task<IEnumerable<BTUser>> GetDevelopersOnProjectAsync(int projectId)
+        public Task<IEnumerable<BTUser>> GetDevelopersOnProjectAsync(int projectId)
         {
+            // PER DISCORD THIS IS NEVER IMPLEMENTED NOT MISSED!
             throw new NotImplementedException();
         }
 
@@ -193,6 +194,7 @@ namespace BugTracker.Services
 
         public Task<IEnumerable<BTUser>> GetSubmittersOnProjectAsync(int projectId)
         {
+            // PER DISCORD THIS IS NEVER IMPLEMENTED NOT MISSED!
             throw new System.NotImplementedException();
         }
 

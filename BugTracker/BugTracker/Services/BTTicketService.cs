@@ -45,7 +45,7 @@ namespace BugTracker.Services
             {
                 ticket.Archived = true;
                 _context.Tickets.Update(ticket);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
             catch(Exception)
             {
