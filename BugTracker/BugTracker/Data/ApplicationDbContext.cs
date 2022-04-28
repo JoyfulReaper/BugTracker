@@ -36,6 +36,6 @@ namespace BugTracker.Data
 
         public DbSet<TicketType> TicketTypes { get; set; }
 
-        public DbSet<BugTracker.Models.ProjectPriority> ProjectPriority { get; set; }
+        public DbSet<BugTracker.Models.ProjectPriority> ProjectPriorities { get; set; }
     }
 }

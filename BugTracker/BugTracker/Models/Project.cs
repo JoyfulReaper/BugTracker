@@ -17,7 +17,7 @@ namespace BugTracker.Models
         [Required]
         [StringLength(50)]
         [DisplayName("Project Name")]
-        public int Name { get; set; }
+        public string Name { get; set; }
 
         public string Description { get; set; }
 
@@ -30,7 +30,7 @@ namespace BugTracker.Models
         public DateTimeOffset? EndDate { get; set; }
 
         [DisplayName("Priority")]
-        public int? ProjectPriotiryId { get; set; }
+        public int? ProjectPriorityId { get; set; }
 
         [NotMapped]
         [DataType(DataType.Upload)]

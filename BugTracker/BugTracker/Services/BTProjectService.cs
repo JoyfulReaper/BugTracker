@@ -30,7 +30,7 @@ namespace BugTracker.Services
 
         public async Task<bool> AddProjectManagerAsync(string userId, int projectId)
         {
-            var project = _context.Projects.FirstOrDefault(x => x.ProjectPriotiryId == projectId);
+            var project = _context.Projects.FirstOrDefault(x => x.ProjectPriorityId == projectId);
             var currentPm = await GetProjectManagerAsync(projectId);
 
             if(currentPm != null)
@@ -132,7 +132,7 @@ namespace BugTracker.Services
             var projects = await GetAllProjectsByCompany(companyId);
             int priorityId = await LookupProjectPriorityId(priorityName);
 
-            return projects.Where(x => x.ProjectPriotiryId == priorityId);
+            return projects.Where(x => x.ProjectPriorityId == priorityId);
         }
 
         public async Task<IEnumerable<Project>> GetArchivedProjectsByCompany(int companyId)
@@ -258,7 +258,7 @@ namespace BugTracker.Services
 
         public async Task<int> LookupProjectPriorityId(string priorityName)
         {
-            return (await _context.ProjectPriority.FirstOrDefaultAsync(x => x.Name == priorityName)).Id;
+            return (await _context.ProjectPriorities.FirstOrDefaultAsync(x => x.Name == priorityName)).Id;
         }
 
         public async Task RemoveProjectManagerAsync(int projectId)
