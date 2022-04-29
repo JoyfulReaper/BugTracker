@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BugTracker.Data.Migrations
 {
-    public partial class DataModels : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -36,7 +36,7 @@ namespace BugTracker.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProjectPriority",
+                name: "ProjectPriorities",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -45,7 +45,7 @@ namespace BugTracker.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProjectPriority", x => x.Id);
+                    table.PrimaryKey("PK_ProjectPriorities", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -152,16 +152,15 @@ namespace BugTracker.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CompanyId = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<int>(type: "int", maxLength: 50, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     StartDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     EndDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    ProjectPriotiryId = table.Column<int>(type: "int", nullable: true),
+                    ProjectPriorityId = table.Column<int>(type: "int", nullable: true),
                     FileName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FileData = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     FileContentType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Archived = table.Column<bool>(type: "bit", nullable: false),
-                    ProjectPriorityId = table.Column<int>(type: "int", nullable: true)
+                    Archived = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -173,9 +172,9 @@ namespace BugTracker.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Projects_ProjectPriority_ProjectPriorityId",
+                        name: "FK_Projects_ProjectPriorities_ProjectPriorityId",
                         column: x => x.ProjectPriorityId,
-                        principalTable: "ProjectPriority",
+                        principalTable: "ProjectPriorities",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -302,6 +301,9 @@ namespace BugTracker.Data.Migrations
                     ProjectId = table.Column<int>(type: "int", nullable: true),
                     InvitorId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     InviteeId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    InviteeEmail = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    InviteeFirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    InviteeLastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsValid = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -734,7 +736,7 @@ namespace BugTracker.Data.Migrations
                 name: "Companies");
 
             migrationBuilder.DropTable(
-                name: "ProjectPriority");
+                name: "ProjectPriorities");
         }
     }
 }

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BugTracker.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211209222223_DataModels")]
-    partial class DataModels
+    [Migration("20220429001129_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -157,8 +157,17 @@ namespace BugTracker.Data.Migrations
                     b.Property<DateTimeOffset>("InviteDate")
                         .HasColumnType("datetimeoffset");
 
+                    b.Property<string>("InviteeEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("InviteeFirstName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("InviteeId")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("InviteeLastName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("InvitorId")
                         .HasColumnType("nvarchar(450)");
@@ -255,14 +264,12 @@ namespace BugTracker.Data.Migrations
                     b.Property<string>("FileName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Name")
+                    b.Property<string>("Name")
+                        .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int?>("ProjectPriorityId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ProjectPriotiryId")
                         .HasColumnType("int");
 
                     b.Property<DateTimeOffset>("StartDate")
@@ -289,7 +296,7 @@ namespace BugTracker.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ProjectPriority");
+                    b.ToTable("ProjectPriorities");
                 });
 
             modelBuilder.Entity("BugTracker.Models.Ticket", b =>
@@ -657,7 +664,7 @@ namespace BugTracker.Data.Migrations
             modelBuilder.Entity("BugTracker.Models.Invite", b =>
                 {
                     b.HasOne("BugTracker.Models.Company", "Company")
-                        .WithMany()
+                        .WithMany("Invites")
                         .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -876,6 +883,8 @@ namespace BugTracker.Data.Migrations
 
             modelBuilder.Entity("BugTracker.Models.Company", b =>
                 {
+                    b.Navigation("Invites");
+
                     b.Navigation("Members");
 
                     b.Navigation("Projects");
