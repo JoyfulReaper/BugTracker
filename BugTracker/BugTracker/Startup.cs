@@ -42,6 +42,7 @@ namespace BugTracker
 
             services.AddIdentity<BTUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddClaimsPrincipalFactory<UserClaimsPrincipalFactory<BTUser, IdentityRole>>()
                 .AddDefaultUI()
                 .AddDefaultTokenProviders();
 

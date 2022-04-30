@@ -2,6 +2,7 @@
 using BugTracker.Models;
 using BugTracker.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -23,6 +24,19 @@ namespace BugTracker.Services
             _userManager = userManager;
         }
 
+        public IEnumerable<IdentityRole> GetRoles()
+        {
+            try
+            {
+                return _context.Roles.AsEnumerable<IdentityRole>();
+            }
+            catch (System.Exception)
+            {
+
+                throw;
+            }
+        }
+        
         public async Task<bool> AddUserToRoleAsync(BTUser user, string roleName)
         {
             bool result = (await _userManager.AddToRoleAsync(user, roleName)).Succeeded;
